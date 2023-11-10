@@ -16,6 +16,8 @@ rain <- read.csv("https://data.humdata.org/dataset/a1e45bba-c52b-4c23-897a-2a2be
             name_en = Name,
             r3h = as.numeric(r3h))
 
+# regional polygons to hex
+# find centroid of polygon and build hexagon around it
 geo_hex <- st_read(here("2023/kontur_boundaries_GE_20230628.gpkg")) %>% 
   select(name_en, geom) %>% 
   transmute(name_en = sub("Municipality|Village|Raion|Administrative Unit|District", "", name_en),
@@ -24,6 +26,7 @@ geo_hex <- st_read(here("2023/kontur_boundaries_GE_20230628.gpkg")) %>%
             hex = cell_to_polygon(input = h3, simple = FALSE)) %>% 
   filter(!is.na(name_en))
 
+# fuzzy join rain data and geo data by name
 geo_rain <- geo_hex %>% 
   stringdist_join(rain, by = "name_en", mode = "left", method = "lv", max_dist = 9, ignore_case = TRUE) %>% 
   transmute(location = name_en.y,
@@ -32,6 +35,7 @@ geo_rain <- geo_hex %>%
             `long term average 3 mo (mm)` = r3h)%>% 
   filter(!is.na(summer))
 
+# plot small multiples of hex maps
 g <- ggplot() +
   geom_sf(data = geo_rain, aes(geometry = geometry, fill = `long term average 3 mo (mm)`)) +
   scale_fill_viridis_c("long term average 3 mo rolling agg (mm)", option = "G") +
