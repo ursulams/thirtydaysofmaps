@@ -34,7 +34,8 @@ g <- ggplot() +
   facet_wrap(~ year) +
   theme_void() +
   theme(plot.background = element_rect(fill = "white", color = "white"),
-        plot.title = element_text(hjust = 0.5, vjust = 10),
+        plot.title = element_text(size = 18, hjust = 0.5, vjust = 10),
+        strip.text = element_text(size = 14), 
         plot.margin = margin(2, 2, 2, 2, "cm"),
         legend.title = element_blank()) +
   labs(title = "Illegal logging in Georgia (cubic meters)",
