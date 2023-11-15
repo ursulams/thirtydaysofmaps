@@ -15,11 +15,10 @@ geo_exports <- readxl::read_xlsx(here("2023/europe/exports.xlsx"),
   pivot_longer(cols = 3:11, names_to = "year", values_to = "export_total_000") %>%
   mutate(export_total = export_total_000*1000) %>% 
   ungroup() %>% 
-  filter(year > min(year)) %>% # remove base year
   left_join(euro, by = c("Code" = "UN"))
 
 # plot small multiples
-palette <- colorRampPalette(c("#e44622", "#c87763", "#a39593", "#60adb4", "#6bbdb3"), bias = 4)(256)
+palette <- colorRampPalette(c("#e44622", "#c87763", "#a39593", "#6bbdb3", "#60adb4"), bias = 4)(256)
 
 g <- ggplot() +
   geom_sf(data = geo_exports, aes(geometry = geometry, fill = export_total), linewidth = 0.1) +
@@ -32,7 +31,7 @@ g <- ggplot() +
         plot.margin = margin(2, 2, 2, 2, "cm"),
         legend.title = element_blank(),
         legend.text = element_text(size = 14)) +
-  labs(title = "Georgian domestic export totals to Europe (USD)",
+  labs(title = "Georgian Domestic Export Totals to Europe (USD)",
        caption = "sources: LEPL Revenue Service of the Ministry of Finance of Georgia\n
         Georgian State Electrosystem, JSC\n
         Electricity System Commercial Operator, JSC\n
