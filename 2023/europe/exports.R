@@ -13,17 +13,16 @@ download.file(url = "https://geostat.ge/media/57690/Domestic-Export-Country_2014
 geo_exports <- readxl::read_xlsx(here("2023/europe/exports.xlsx"),
   range = "2014-2022-years!A4:K193")[c(4:30, 33:35, 38:39, 42, 49, 63, 99, 102, 118, 120, 132, 134, 143, 154, 157:158, 168, 176, 180), ] %>% 
   pivot_longer(cols = 3:11, names_to = "year", values_to = "export_total_000") %>%
-  group_by(Countries) %>%
-  mutate(`percent change over previous year` = log10(round(100*((export_total_000-lag(export_total_000))/abs((lag(export_total_000)+1))), 2))) %>% 
+  mutate(export_total = export_total_000*1000) %>% 
   ungroup() %>% 
   filter(year > min(year)) %>% # remove base year
   left_join(euro, by = c("Code" = "UN"))
 
 # plot small multiples
-palette <- colorRampPalette(c("#0b1e33", "#013c58", "#00537a", "#287c9c", "#a5ce8d",  "#ffba42"), bias = 4)(256)
+palette <- colorRampPalette(c("#e44622", "#c87763", "#a39593", "#60adb4", "#6bbdb3"), bias = 4)(256)
 
 g <- ggplot() +
-  geom_sf(data = geo_exports, aes(geometry = geometry, fill = `percent change over previous year`), linewidth = 0.1) +
+  geom_sf(data = geo_exports, aes(geometry = geometry, fill = export_total), linewidth = 0.1) +
   scale_fill_gradientn(colours = palette, na.value = "white") +
   facet_wrap(~ year) +
   theme_void() +
@@ -33,7 +32,7 @@ g <- ggplot() +
         plot.margin = margin(2, 2, 2, 2, "cm"),
         legend.title = element_blank(),
         legend.text = element_text(size = 14)) +
-  labs(title = "Percent change (log base 10-transformed) in Georgian domestic export totals (USD) over previous year",
+  labs(title = "Georgian domestic export totals to Europe (USD)",
        caption = "sources: LEPL Revenue Service of the Ministry of Finance of Georgia\n
         Georgian State Electrosystem, JSC\n
         Electricity System Commercial Operator, JSC\n
