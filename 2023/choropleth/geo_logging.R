@@ -34,10 +34,11 @@ g <- ggplot() +
   facet_wrap(~ year) +
   theme_void() +
   theme(plot.background = element_rect(fill = "white", color = "white"),
-        plot.title = element_text(size = 18, hjust = 0.5, vjust = 10),
+        plot.title = element_text(size = 22, hjust = 0.5, vjust = 10),
         strip.text = element_text(size = 14), 
         plot.margin = margin(2, 2, 2, 2, "cm"),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14)) +
   labs(title = "Illegal logging in Georgia (cubic meters)",
        caption = "sources: Ministry of Environment Protection and Agriculture of Georgia\n
         LEPL Forestry Agency of Adjara\n
