@@ -6,7 +6,7 @@ library(raster)
 library(rayshader)
 library(magick)
 
-# OSM map of roadways in the country of Georgia
+# OSM map of roadways in the country of Georgia's capital city, Tbilisi
 download.file(url = "https://export.hotosm.org/downloads/c602a7be-dbf7-45c1-abcc-ef197ea0f60d/hotosm_geo_roads_gpkg.zip",
               destfile = here("2023/open street map/roads.zip"))
 unzip(zipfile = here("2023/open street map/roads.zip"), exdir = here("2023/open street map/"))
@@ -25,7 +25,8 @@ tibs_roads <- st_read(here("2023/open street map/hotosm_geo_roads.gpkg")) %>%
 elev <- get_elev_raster(tibs_border, z = 12)
 tibs_mat <- raster_to_matrix(elev)
 
-# as spencer schien utilizes: dynaimcally set window height and width based on object size
+# as spencer schien utilizes here: https://spencerschien.info/post/data_viz_how_to/high_quality_rayshader_visuals/
+# dynaimcally set window height and width based on object size
 w <- nrow(tibs_mat)
 h <- ncol(tibs_mat)
 
@@ -108,7 +109,7 @@ img <- image_annotate(img_, "source: Humanitarian OpenStreetMap Team",
                  size = 16,
                  font = "Avenir")
 
-image_write(img, here("2023/images/final.png"), format = "png")
+image_write(img, here("2023/images/tibs_roads.png"), format = "png")
 
 
 
