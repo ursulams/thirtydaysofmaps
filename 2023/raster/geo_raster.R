@@ -74,7 +74,7 @@ img_ <- image_annotate(img_, "Greater Caucasus, Georgia",
                        font = "Avenir")
 img_ <- image_annotate(img_, "Shkhara (5193 m)",
                        gravity = "none",
-                       location = "+391+361",
+                       location = "+397+361",
                        color = "#273049",
                        size = 16,
                        font = "Avenir")
@@ -86,7 +86,7 @@ img_ <- image_annotate(img_, "Dzhangi (5058 m)",
                        font = "Avenir")
 img_ <- image_annotate(img_, "Kazbegi (5033 m)",
                        gravity = "none",
-                       location = "+491+384",
+                       location = "+491+394",
                        color = "#273049",
                        size = 16,
                        font = "Avenir")
