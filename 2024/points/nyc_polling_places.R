@@ -13,7 +13,7 @@ points <- read.socrata("https://data.cityofnewyork.us/resource/mifw-tguq.json?si
     "is a school", "is not a school"))
 
 # polygons of nyc borough boundaries with spatially joined polling place points
-nyc_poly <- st_read(here("2024/nyc_boundaries.geojson"))
+nyc_poly <- st_read(here("2024/points/nyc_boundaries.geojson"))
 
 g <- ggplot() +
   geom_sf(data = nyc_poly, fill = "#d8dbe2", color = "#355070") +

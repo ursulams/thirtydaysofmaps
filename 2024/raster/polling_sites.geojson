@@ -1,0 +1,27 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "property": "Cloudcroft High School",
+      "geometry": {
+        "coordinates": [
+          -105.7417879227389,
+          32.95788486069536
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "property": "James Canyon Fire Station",
+      "geometry": {
+        "coordinates": [
+          -105.6454046064229,
+          32.95634269411504
+        ],
+        "type": "Point"
+      }
+    }
+  ]
+}
